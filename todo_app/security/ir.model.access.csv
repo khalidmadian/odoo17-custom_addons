@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_todo_task,access_todo_task,model_todo_task,,1,1,1,1
+access_task_history,access_task_history,model_task_history,,1,1,1,1
+access_task_move,access_task_move,model_task_move,,1,1,1,1
+access_change_state,access_change_state,model_change_state,,1,1,1,1
+access_task_history,access_task_history,model_task_history,,1,1,1,1
+access_task_history_line,access_task_history_line,model_task_history_line,,1,1,1,1

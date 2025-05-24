@@ -1,0 +1,8 @@
+<odoo>
+    <menuitem id="todo_task_base_menu"
+              name="ToDo App"/>
+
+    <menuitem id="todo_task_menu"
+              name="ToDo Task"
+              parent="todo_task_base_menu"/>
+</odoo>

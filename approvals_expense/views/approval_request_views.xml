@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_expense_request_view_form_inherit" model="ir.ui.view">
+        <field name="name">approval.expense.request.view.form.inherit</field>
+        <field name="model">approval.request</field>
+        <field name="inherit_id" ref="approvals.approval_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_get_attachment_view']" position="after">
+                <button name="action_open_expenses" type="object"
+                        class="oe_stat_button" icon="fa-money"
+                        invisible="expense_count == 0">
+                    <field name="expense_count" string="Expense Sheets" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="action_create_expense_sheets" type="object"
+                        groups="hr_expense.group_hr_expense_user"
+                        string="Create Expense Sheets" class="btn-primary"
+                        data-hotkey="g"
+                        invisible="approval_type != 'expense' or request_status != 'approved' or expense_count &gt; 0"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

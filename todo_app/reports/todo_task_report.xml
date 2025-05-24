@@ -1,0 +1,98 @@
+<odoo>
+    <record id="paperformat_todo_task" model="report.paperformat">
+        <field name="name">To Do Task Report</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">16</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">33</field>
+        <field name="dpi">95</field>
+    </record>
+
+    <record id="todo_task_report" model="ir.actions.report">
+        <field name="name">To-Do Task Report</field>
+        <field name="model">todo.task</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">todo_app.todo_task_report_template</field>
+        <field name="paperformat_id" ref="paperformat_todo_task"/>
+        <field name="binding_model_id" ref="model_todo_task"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="todo_task_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="object">
+                <div class="header" style="text-align: center; margin-bottom: 20px;">
+                    <h1>To-Do Task Report</h1>
+                    <p>Generated on:
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                    </p>
+                </div>
+
+                <div class="task-details" style="margin-bottom: 30px;">
+                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th style="padding: 8px;  width: 30%;">Task Name</th>
+                            <td style="padding: 8px; background: #f1f1f1;" t-esc="object.name"/>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px;">Due Date</th>
+                            <td style="padding: 8px;  background: #f1f1f1;" t-esc="object.due_date"/>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; ">Status</th>
+                            <td style="padding: 8px; background: #f1f1f1;" t-esc="object.status"/>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; ">Assigned To</th>
+                            <td style="padding: 8px; background: #f1f1f1;" t-esc="object.assign_to.name"/>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; ">Estimated Time</th>
+                            <td style="padding: 8px; background: #f1f1f1;" t-esc="object.estimated_time"/>
+                        </tr>
+                        <tr>
+                            <th style="padding: 8px; ">Total Time Spent</th>
+                            <td style="padding: 8px; background: #f1f1f1;" t-esc="object.total_time"/>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="description" style="margin-bottom: 20px;">
+                    <h3>Description:</h3>
+                    <p t-esc="object.description"/>
+                </div>
+
+                <div class="task-history" style="margin-bottom: 20px;">
+                    <h3>Task History:</h3>
+                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f1f1f1;">
+                                <th style="padding: 8px;">Name</th>
+                                <th style="padding: 8px;">Description</th>
+                                <th style="padding: 8px;">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="object.task_line" t-as="history">
+                                <tr>
+                                    <td style="padding: 8px;" t-esc="history.name"/>
+                                    <td style="padding: 8px;" t-esc="history.description"/>
+                                    <td style="padding: 8px;" t-esc="history.time"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="footer" style="margin-top: 30px; text-align: center; font-size: 0.8em; color: black;">
+                    <p>End of Report</p>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

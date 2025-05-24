@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="task_history_view_form" model="ir.ui.view">
+            <field name="name">task.history.form</field>
+            <field name="model">task.history</field>
+            <field name="arch" type="xml">
+                <form create="0" edit="0" duplicate="0">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="time"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="task_history_view_tree" model="ir.ui.view">
+            <field name="name">task.history.tree</field>
+            <field name="model">task.history</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" duplicate="0">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="time"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_task_history" model="ir.actions.act_window">
+            <field name="name">Task History</field>
+            <field name="res_model">task.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="task_history_menu"
+                  name="Task History"
+                  parent="todo_task_menu"
+                  action="action_task_history"/>
+    </data>
+</odoo>
